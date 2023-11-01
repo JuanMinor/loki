@@ -1,27 +1,13 @@
-//
-//  core.h
-//  @loki
-//
-//  Created by Juan Minor on 3/19/23.
-//
+/*
+    piece.h
+    Author: M., Juan
+    Date: 10/31/2023
+*/
 
 #ifndef CORE_H
 #define CORE_H
 
-// @enums
-typedef enum
-{
-    DEBUG,
-    INFO,
-    WARN,
-    CRITICAL
-} LOG_LEVEL;
-
-// @debug
-#define DEBUG_ENABLED 1
-#define LOG_DIR "logs/loki.log"
-
-// @color
+#define BOARD_SIZE 8
 #define WHITE 0
 #define BLACK 1
 

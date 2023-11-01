@@ -1,5 +1,5 @@
-C 				= gcc
-# flags as required by C compiler
+CC 				= g++
+# flags as required by C++ compiler
 FLAGS 			= -I /workspaces/loki
 
 # binary
@@ -10,39 +10,28 @@ BIN 			= bin
 BUILD 			= bin/build
 
 # object files
-OBJECT_FILES 	= ${BUILD}/string.o \
-				  ${BUILD}/fen.o \
+OBJECT_FILES 	= ${BUILD}/fen.o \
 				  ${BUILD}/piece.o \
-				  ${BUILD}/board.o \
-				  ${BUILD}/chess.o
+				  ${BUILD}/board.o
 
-# src paths
-STRING	 		= src/string/string.c
-FEN 			= src/fen/fen.c
-# chess
-PIECE			= src/chess/piece/piece.c
-BOARD			= src/chess/board/board.c
-CHESS			= src/chess/chess.c
+# src
+FEN 			= src/chess/fen.cpp
+PIECE			= src/chess/piece.cpp
+BOARD			= src/chess/board.cpp
+CHESS			= src/chess/fen.cpp
 
 # rules
-loki: main.c string fen piece board chess
-	${C} ${FLAGS} -o ${BIN}/${BINARY} main.c ${OBJECT_FILES}
-
-# string rule
-string: ${STRING}
-	${C} -c ${FLAGS} -o ${BUILD}/string.o ${STRING}
+loki: main.cpp fen piece board
+	${CC} ${FLAGS} -o ${BIN}/${BINARY} main.cpp ${OBJECT_FILES}
 
 fen: ${FEN}
-	${C} -c ${FLAGS} -o ${BUILD}/fen.o ${FEN}
-
-chess: ${CHESS}
-	${C} -c ${FLAGS} -o ${BUILD}/chess.o ${CHESS}
+	${CC} -c ${FLAGS} -o ${BUILD}/fen.o ${FEN}
 
 piece: ${PIECE}
-	${C} -c ${FLAGS} -o ${BUILD}/piece.o ${PIECE}
+	${CC} -c ${FLAGS} -o ${BUILD}/piece.o ${PIECE}
 
 board: ${BOARD}
-	${C} -c ${FLAGS} -o ${BUILD}/board.o ${BOARD}
+	${CC} -c ${FLAGS} -o ${BUILD}/board.o ${BOARD}
 
 clean:
 	rm -rf ${BUILD}/*
