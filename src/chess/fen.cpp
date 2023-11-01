@@ -25,14 +25,14 @@ Fen::~Fen() {}
 
 std::vector<char *> Fen::__split__(char *__fen, const char *__delimiters)
 {
-    std::vector<char *> result;
+    std::vector<char *> tokens;
     char *token = strtok(__fen, __delimiters);
     while (token != nullptr)
     {
-        result.emplace_back(token);
+        tokens.emplace_back(token);
         token = strtok(nullptr, __delimiters);
     }
-    return result;
+    return tokens;
 }
 
 char *Fen::get_placement()
