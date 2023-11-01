@@ -14,7 +14,6 @@
 
 Board::Board(const char *__placement)
 {
-    std::cout << __placement << std::endl;
     size_t size = std::strlen(__placement);
     uint8_t rank = 0, file = 0;
     this->board.resize(BOARD_SIZE, std::vector<Piece *>(BOARD_SIZE, nullptr));

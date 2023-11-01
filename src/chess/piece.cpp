@@ -9,8 +9,6 @@
 #include "include/chess/piece.h"
 #include "include/core/core.h"
 
-#include <iostream>
-
 std::unordered_map<char, uint8_t> values = {
     {'P', 1},
     {'p', 1},
