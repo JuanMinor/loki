@@ -8,13 +8,13 @@
 #ifndef STRING_H
 #define STRING_H
 
+// @c
 #include <ctype.h>
 #include <string.h>
+#include <stdlib.h>
 
-#include "include/core/core.h"
-
+// @public
 char *trim(char *__string);
-
 char **split(const char *__string, const char *__delimiters, size_t *__size);
 
 #endif

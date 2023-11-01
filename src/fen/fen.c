@@ -5,11 +5,15 @@
 //  Created by Juan Minor on 3/17/23.
 //
 
+// @c
 #include <stdio.h>
 
+// @loki
 #include "include/fen/fen.h"
 #include "include/string/string.h"
+#include "include/core/core.h"
 
+// @public
 struct Fen *create_fen(const char *__fen)
 {
     // Split Forsyth-Edwards Notation.

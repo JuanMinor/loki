@@ -8,13 +8,10 @@
 #ifndef FEN_H
 #define FEN_H
 
+// @c
 #include <ctype.h>
 #include <string.h>
-
-#include "include/core/core.h"
-
-#define WHITE 1
-#define BLACK 0
+#include <stdint.h>
 
 struct Fen
 {
@@ -26,8 +23,8 @@ struct Fen
     uint8_t full_moves;
 };
 
+// @public
 struct Fen *create_fen(const char *__fen);
-
 void destroy_fen(struct Fen *__fen);
 
 #endif

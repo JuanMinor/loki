@@ -8,10 +8,21 @@
 #ifndef CORE_H
 #define CORE_H
 
-#define DEBUG 1
+// @enums
+typedef enum
+{
+    DEBUG,
+    INFO,
+    WARN,
+    CRITICAL
+} LOG_LEVEL;
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
+// @debug
+#define DEBUG_ENABLED 1
+#define LOG_DIR "logs/loki.log"
+
+// @color
+#define WHITE 0
+#define BLACK 1
 
 #endif

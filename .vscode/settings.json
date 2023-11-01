@@ -7,10 +7,18 @@
 		"initializer_list": "c",
 		"ranges": "c",
 		"span": "c",
-		"utility": "c"
+		"utility": "c",
+		"stdlib.h": "c",
+		"board.h": "c",
+		"piece.h": "c",
+		"fen.h": "c",
+		"chess.h": "c"
 	},
 	"C_Cpp.autocompleteAddParentheses": true,
 	"C_Cpp.default.cStandard": "c17",
 	"C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
-	"C_Cpp.errorSquiggles": "enabled"
+	"C_Cpp.errorSquiggles": "enabled",
+	"C_Cpp.inlayHints.parameterNames.suppressWhenArgumentContainsName": false,
+	"C_Cpp.inlayHints.parameterNames.enabled": true,
+	"editor.formatOnSave": true
 }

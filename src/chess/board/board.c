@@ -5,8 +5,15 @@
 //  Created by Juan Minor on 4/2/23.
 //
 
+// @c
+#include <ctype.h>
+#include <stdlib.h>
+#include <string.h>
+
+// @loki
 #include "include/chess/board/board.h"
 
+// @public
 struct Board *create_board(const char *__placement)
 {
     size_t size = strlen(__placement);
@@ -40,6 +47,38 @@ struct Board *create_board(const char *__placement)
     return board;
 }
 
+void move(const uint8_t __rank, const uint8_t __file, struct Board *__board, struct Piece *__piece)
+{
+    // @move
+    if (__board == NULL || __piece == NULL)
+    {
+        return;
+    }
+    __board->board[__piece->rank][__piece->file] = NULL;
+    __board->board[__rank][__file] = __piece;
+    __piece->rank = __rank;
+    __piece->file = __file;
+    return;
+}
+
+void print_board(const struct Board *__board)
+{
+    // @print . for empty spaces, alias for occupied ones.
+    for (uint8_t i = 0; i < BOARD_SIZE; ++i)
+    {
+        for (uint8_t j = 0; j < BOARD_SIZE; ++j)
+        {
+            if (__board->board[i][j])
+            {
+                printf("%c ", *__board->board[i][j]->alias);
+                continue;
+            }
+            printf(". ");
+        }
+        printf("\n");
+    }
+}
+
 void destroy_board(struct Board *__board)
 {
     if (__board)
@@ -55,22 +94,4 @@ void destroy_board(struct Board *__board)
         free(__board);
     }
     return;
-}
-
-void print_board(const struct Board *__board)
-{
-    // Print piece char representation, ". " for empty squares.
-    for (uint8_t i = 0; i < BOARD_SIZE; ++i)
-    {
-        for (uint8_t j = 0; j < BOARD_SIZE; ++j)
-        {
-            if (__board->board[i][j])
-            {
-                printf("%c ", *__board->board[i][j]->alias);
-                continue;
-            }
-            printf(". ");
-        }
-        printf("\n");
-    }
 }

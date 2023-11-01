@@ -7,6 +7,7 @@
 
 #include "include/string/string.h"
 
+// @public
 char *trim(char *__string)
 {
 	if (!__string)
