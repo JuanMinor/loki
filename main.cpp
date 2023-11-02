@@ -8,7 +8,6 @@
 
 #include "include/chess/board.h"
 #include "include/chess/fen.h"
-#include "include/logger/log.h"
 
 int main(int argc, char *argv[])
 {
