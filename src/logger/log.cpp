@@ -1,5 +1,5 @@
 /*
-    board.cpp
+    log.cpp
     Author: M., Juan
     Date: 10/31/2023
 */
