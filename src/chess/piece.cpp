@@ -9,54 +9,58 @@
 #include "include/chess/piece.h"
 #include "include/core/core.h"
 
-std::unordered_map<char, uint8_t> values = {
-    {'P', 1},
-    {'p', 1},
-    {'N', 3},
-    {'n', 3},
-    {'B', 3},
-    {'b', 3},
-    {'R', 5},
-    {'r', 5},
-    {'Q', 9},
-    {'q', 9},
-    {'K', 25},
-    {'k', 25}};
-
-Piece::Piece(char __alias, uint8_t __rank, uint8_t __file)
+namespace Loki
 {
-    this->alias = __alias;
-    this->value = values[__alias];
-    this->color = isupper(__alias) ? WHITE : BLACK;
-    this->rank = __rank;
-    this->file = __file;
-}
+    std::unordered_map<char, uint8_t>
+        values = {
+            {'P', 1},
+            {'p', 1},
+            {'N', 3},
+            {'n', 3},
+            {'B', 3},
+            {'b', 3},
+            {'R', 5},
+            {'r', 5},
+            {'Q', 9},
+            {'q', 9},
+            {'K', 25},
+            {'k', 25}};
 
-Piece::~Piece()
-{
-}
+    Piece::Piece(char __alias, uint8_t __rank, uint8_t __file)
+    {
+        this->alias = __alias;
+        this->value = values.at(__alias);
+        this->color = isupper(__alias) ? WHITE : BLACK;
+        this->rank = __rank;
+        this->file = __file;
+    }
 
-char Piece::get_alias()
-{
-    return this->alias;
-}
+    Piece::~Piece()
+    {
+    }
 
-uint8_t Piece::get_value()
-{
-    return this->value;
-}
+    char Piece::get_alias()
+    {
+        return this->alias;
+    }
 
-uint8_t Piece::get_color()
-{
-    return this->color;
-}
+    uint8_t Piece::get_value()
+    {
+        return this->value;
+    }
 
-uint8_t Piece::get_rank()
-{
-    return this->rank;
-}
+    uint8_t Piece::get_color()
+    {
+        return this->color;
+    }
 
-uint8_t Piece::get_file()
-{
-    return this->file;
+    uint8_t Piece::get_rank()
+    {
+        return this->rank;
+    }
+
+    uint8_t Piece::get_file()
+    {
+        return this->file;
+    }
 }

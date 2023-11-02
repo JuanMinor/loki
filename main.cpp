@@ -6,8 +6,9 @@
 
 #include <iostream>
 
-#include "include/chess/fen.h"
 #include "include/chess/board.h"
+#include "include/chess/fen.h"
+#include "include/logger/log.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,10 +18,11 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    Fen *fen = new Fen(argv[1]);
+    Loki::Fen *fen = new Loki::Fen(argv[1]);
 
-    Board *board = new Board(fen->get_placement());
+    Loki::Board *board = new Loki::Board(fen->get_placement());
 
     board->print();
+
     return 0;
 }

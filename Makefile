@@ -12,26 +12,30 @@ BUILD 			= bin/build
 # object files
 OBJECT_FILES 	= ${BUILD}/fen.o \
 				  ${BUILD}/piece.o \
-				  ${BUILD}/board.o
+				  ${BUILD}/board.o \
+				  ${BUILD}/log.o
 
 # src
-FEN 			= src/chess/fen.cpp
-PIECE			= src/chess/piece.cpp
 BOARD			= src/chess/board.cpp
-CHESS			= src/chess/fen.cpp
+FEN 			= src/chess/fen.cpp
+LOG				= src/logger/log.cpp
+PIECE			= src/chess/piece.cpp
 
 # rules
-loki: main.cpp fen piece board
+loki: main.cpp board fen log piece
 	${CC} ${FLAGS} -o ${BIN}/${BINARY} main.cpp ${OBJECT_FILES}
+
+board: ${BOARD}
+	${CC} -c ${FLAGS} -o ${BUILD}/board.o ${BOARD}
 
 fen: ${FEN}
 	${CC} -c ${FLAGS} -o ${BUILD}/fen.o ${FEN}
 
+log: ${LOG}
+	${CC} -c ${FLAGS} -o ${BUILD}/log.o ${LOG}
+
 piece: ${PIECE}
 	${CC} -c ${FLAGS} -o ${BUILD}/piece.o ${PIECE}
-
-board: ${BOARD}
-	${CC} -c ${FLAGS} -o ${BUILD}/board.o ${BOARD}
 
 clean:
 	rm -rf ${BUILD}/*

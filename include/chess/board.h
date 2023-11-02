@@ -11,16 +11,19 @@
 
 #include "include/chess/piece.h"
 
-class Board
+namespace Loki
 {
-    std::vector<std::vector<Piece *>> board;
+    class Board
+    {
+        std::vector<std::vector<Piece *>> board;
 
-public:
-    Board(const char *__placement);
-    ~Board();
+    public:
+        Board(const char *__placement);
+        ~Board();
 
-    // @methods
-    void print();
-};
+        // @methods
+        void print();
+    };
+}
 
 #endif
