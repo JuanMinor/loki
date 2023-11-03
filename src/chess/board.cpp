@@ -39,11 +39,12 @@ namespace Loki
                 }
                 continue;
             }
+            this->board[rank][file++] = new Piece(c, rank, file);
             std::stringstream ss;
             ss << "Created piece with alias '" << c << "' with <rank, file> <" << unsigned(rank) << ", " << unsigned(file) << ">!";
             Logger::LOG_DEBUG(ss.str());
-            this->board[rank][file++] = new Piece(c, rank, file);
         }
+        Logger::LOG_INFO("Created chess board!");
     }
 
     Board::~Board()
@@ -55,10 +56,14 @@ namespace Loki
                 Piece *piece = this->board[rank][file];
                 if (piece != nullptr)
                 {
+                    std::stringstream ss;
+                    ss << "Destroyed piece with alias '" << piece->get_alias() << "' with <rank, file> <" << unsigned(piece->get_rank()) << ", " << unsigned(piece->get_file()) << ">!";
+                    Logger::LOG_DEBUG(ss.str());
                     delete piece;
                 }
             }
         }
+        Logger::LOG_INFO("Destroyed chess board and it's components!");
     }
 
     void Board::print()
@@ -77,5 +82,4 @@ namespace Loki
             std::cout << std::endl;
         }
     }
-
 }
