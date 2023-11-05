@@ -23,6 +23,10 @@ int main(int argc, char *argv[])
 
     board->print();
 
+    board->move(board->get_board()[0][0], 5, 5);
+
+    board->print();
+
     delete board;
 
     return 0;

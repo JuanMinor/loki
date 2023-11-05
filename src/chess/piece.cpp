@@ -59,8 +59,18 @@ namespace Loki
         return this->rank;
     }
 
+    void Piece::set_rank(uint8_t __rank)
+    {
+        this->rank = __rank;
+    }
+
     uint8_t Piece::get_file()
     {
         return this->file;
+    }
+
+    void Piece::set_file(uint8_t __file)
+    {
+        this->file = __file;
     }
 }

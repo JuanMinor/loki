@@ -29,7 +29,9 @@ namespace Loki
         uint8_t get_value();
         uint8_t get_color();
         uint8_t get_rank();
+        void set_rank(uint8_t __rank);
         uint8_t get_file();
+        void set_file(uint8_t __file);
     };
 }
 

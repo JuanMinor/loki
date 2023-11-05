@@ -22,6 +22,8 @@ namespace Loki
         ~Board();
 
         // @methods
+        std::vector<std::vector<Piece *>> get_board();
+        void move(Piece *__piece, uint8_t __rank, uint8_t __file);
         void print();
     };
 }

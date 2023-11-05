@@ -66,6 +66,43 @@ namespace Loki
         Logger::LOG_INFO("Destroyed chess board and it's components!");
     }
 
+    std::vector<std::vector<Piece *>> Board::get_board()
+    {
+        return this->board;
+    }
+
+    void Board::move(Piece *__piece, uint8_t __rank, uint8_t __file)
+    {
+        std::stringstream ss;
+        // @errors
+        if (__rank < 0 || __rank >= BOARD_SIZE || __file < 0 || __file >= BOARD_SIZE)
+        {
+            ss << "Board address <rank, file> <" << unsigned(__rank) << ", " << unsigned(__file) << "> is out of bounds!";
+            Logger::LOG_ERROR(ss.str());
+            return;
+        }
+        uint8_t rank = __piece->get_rank(), file = __piece->get_file();
+        if (this->board[rank][file] == nullptr)
+        {
+            ss << "Piece holds invalid address <rank, file> <" << unsigned(rank) << ", " << unsigned(file) << ">!";
+            Logger::LOG_ERROR(ss.str());
+            return;
+        }
+
+        // @move
+        __piece->set_rank(__rank);
+        __piece->set_file(__file);
+        this->board[__rank][__file] = __piece;
+        this->board[rank][file] = nullptr;
+
+        ss << "Moved piece with alias '" << __piece->get_alias()
+           << "' from <rank, file> <" << unsigned(rank) << ", "
+           << unsigned(file) << "> to <" << unsigned(__rank)
+           << ", " << unsigned(__file) << ">!";
+        Logger::LOG_INFO(ss.str());
+        return;
+    }
+
     void Board::print()
     {
         for (uint8_t i = 0; i < BOARD_SIZE; ++i)
