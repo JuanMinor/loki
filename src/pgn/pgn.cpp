@@ -49,7 +49,7 @@ namespace pgn
         if (!file)
         {
             std::stringstream ss;
-            ss << "Cannot open file: '" << P_FILE << "'" << std::endl;
+            ss << "Cannot open file: '" << P_FILE_STORE << "'" << std::endl;
             logger::LOG_ERROR(ss.str());
             return;
         }
