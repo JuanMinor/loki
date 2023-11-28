@@ -43,7 +43,7 @@ namespace loki
     // @methods
     bool Piece::__has_piece_moved__(void) const
     {
-        if ((this->alias == 'p' && this->rank == 1) || (this->alias == 'P' && this->rank == 6))
+        if ((this->alias == 'p' && this->rank == 6) || (this->alias == 'P' && this->rank == 1))
         {
             return false;
         }

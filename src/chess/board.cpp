@@ -27,15 +27,15 @@ namespace loki
     Board::Board(const char *__placement)
     {
         size_t size = std::strlen(__placement);
-        uint8_t rank = 0, file = 0;
+        uint8_t rank = BOARD_SIZE - 1, file = 0;
         this->board.resize(BOARD_SIZE, std::vector<Piece *>(BOARD_SIZE, nullptr));
 
-        for (size_t i = 0; i < size && rank < BOARD_SIZE; ++i)
+        for (size_t i = 0; i < size && rank >= 0; ++i)
         {
             char c = __placement[i];
             if (c == '/')
             {
-                rank++;
+                rank--;
                 file = 0;
                 continue;
             }
@@ -56,22 +56,20 @@ namespace loki
                << color
                << " "
                << piece_names.at(std::tolower(c, std::locale()))
-               << " with <rank, file> <"
-               << unsigned(piece->get_rank())
-               << ", "
-               << unsigned(piece->get_file())
-               << "> ✅";
+               << " in position "
+               << this->__get_algebraic_notation__(piece->get_rank(), piece->get_file())
+               << " ✅";
             logger::LOG_DEBUG(ss.str());
         }
     }
 
     Board::~Board()
     {
-        for (uint8_t rank = 0; rank < BOARD_SIZE; ++rank)
+        for (int rank = BOARD_SIZE - 1; rank >= 0; --rank)
         {
             for (uint8_t file = 0; file < BOARD_SIZE; ++file)
             {
-                Piece *piece = this->board[rank][file];
+                Piece *piece = this->board.at(rank).at(file);
                 if (piece != nullptr)
                 {
                     std::stringstream ss;
@@ -80,11 +78,9 @@ namespace loki
                        << color
                        << " "
                        << piece_names.at(std::tolower(piece->get_alias(), std::locale()))
-                       << " with <rank, file> <"
-                       << unsigned(piece->get_rank())
-                       << ", "
-                       << unsigned(piece->get_file())
-                       << "> ❌";
+                       << " in position "
+                       << this->__get_algebraic_notation__(rank, file)
+                       << " ❌";
                     logger::LOG_DEBUG(ss.str());
                     delete piece;
                 }
@@ -95,7 +91,7 @@ namespace loki
     std::string Board::__get_algebraic_notation__(const uint8_t &__rank, const uint8_t &__file) const
     {
         std::stringstream ss;
-        ss << char(97 + __rank) << unsigned(__file);
+        ss << char(97 + __file) << unsigned(__rank);
         return ss.str();
     }
 
@@ -134,23 +130,19 @@ namespace loki
            << color
            << " "
            << piece_names.at(std::tolower(__piece->get_alias(), std::locale()))
-           << " from <rank, file> <"
-           << unsigned(rank)
-           << ", "
-           << unsigned(file)
-           << "> to <"
-           << unsigned(__rank)
-           << ", "
-           << unsigned(__file)
-           << "> 🚀";
+           << " from "
+           << this->__get_algebraic_notation__(rank, file)
+           << " to "
+           << this->__get_algebraic_notation__(__rank, __file)
+           << " 🚀";
 
         logger::LOG_INFO(ss.str());
 
         // @pgn
         ss.str("");
-        ss << this->__get_algebraic_notation__(rank, file)
+        ss << this->__get_algebraic_notation__(rank + 1, file)
            << " "
-           << this->__get_algebraic_notation__(__rank, __file);
+           << this->__get_algebraic_notation__(__rank + 1, __file);
         pgn::RECORD(ss.str());
         return;
     }
@@ -161,18 +153,32 @@ namespace loki
         {
             return;
         }
-        for (uint8_t i = 0; i < BOARD_SIZE; ++i)
+        std::cout << "    ";
+        for (uint8_t j = 0; j < BOARD_SIZE; ++j)
         {
+            std::cout << char(97 + j) << " ";
+        }
+        std::cout << "\n";
+        for (int i = BOARD_SIZE - 1; i >= 0; i--) // @cannot be size_t or uint8_t **underflow**
+        {
+            std::cout << unsigned(i + 1) << " - ";
             for (uint8_t j = 0; j < BOARD_SIZE; ++j)
             {
-                if (this->board[i][j])
+                if (this->board.at(i).at(j))
                 {
-                    std::cout << this->board[i][j]->get_alias() << " ";
+                    std::cout << this->board.at(i).at(j)->get_alias() << " ";
                     continue;
                 }
                 std::cout << ". ";
             }
-            std::cout << std::endl;
+            std::cout << "- " << unsigned(i + 1);
+            std::cout << "\n";
         }
+        std::cout << "    ";
+        for (uint8_t j = 0; j < BOARD_SIZE; ++j)
+        {
+            std::cout << char(97 + j) << " ";
+        }
+        std::cout << std::endl;
     }
 }

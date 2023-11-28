@@ -1,6 +1,6 @@
 CC 				= g++
 # flags as required by C++ compiler
-FLAGS 			= -I /workspaces/loki
+FLAGS 			= -g -I /workspaces/loki
 
 # binary
 BINARY 			= loki.elf
