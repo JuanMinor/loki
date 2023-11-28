@@ -18,14 +18,14 @@ namespace logger
     class Logger
     {
         // @methods
-        std::_Put_time<char> __get_timestamp__();
+        std::_Put_time<char> __get_timestamp__(void) const;
 
     public:
         Logger();
         ~Logger();
 
         // @methods
-        void log(const std::string &__message, const char *__file, const uint8_t &__lineno, const LEVEL &__level) noexcept;
+        void log(const std::string &__message, const char *__file, const uint8_t &__lineno, const LEVEL &__level) const;
     };
 
     // @macros

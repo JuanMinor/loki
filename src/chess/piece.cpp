@@ -33,28 +33,39 @@ namespace loki
         this->color = isupper(__alias) ? WHITE : BLACK;
         this->rank = __rank;
         this->file = __file;
+        this->moved = this->__has_piece_moved__();
     }
 
     Piece::~Piece()
     {
     }
 
-    char Piece::get_alias(void) noexcept
+    // @methods
+    bool Piece::__has_piece_moved__(void) const
+    {
+        if ((this->alias == 'p' && this->rank == 1) || (this->alias == 'P' && this->rank == 6))
+        {
+            return false;
+        }
+        return true;
+    }
+
+    char Piece::get_alias(void) const
     {
         return this->alias;
     }
 
-    uint8_t Piece::get_value(void) noexcept
+    uint8_t Piece::get_value(void) const
     {
         return this->value;
     }
 
-    uint8_t Piece::get_color(void) noexcept
+    uint8_t Piece::get_color(void) const
     {
         return this->color;
     }
 
-    uint8_t Piece::get_rank(void) noexcept
+    uint8_t Piece::get_rank(void) const
     {
         return this->rank;
     }
@@ -62,9 +73,10 @@ namespace loki
     void Piece::set_rank(const uint8_t &__rank)
     {
         this->rank = __rank;
+        this->moved = this->__has_piece_moved__();
     }
 
-    uint8_t Piece::get_file(void) noexcept
+    uint8_t Piece::get_file(void) const
     {
         return this->file;
     }
@@ -72,5 +84,15 @@ namespace loki
     void Piece::set_file(const uint8_t &__file)
     {
         this->file = __file;
+    }
+
+    bool Piece::get_moved(void) const
+    {
+        return this->moved;
+    }
+
+    void Piece::set_moved(const bool &__moved)
+    {
+        this->moved = __moved;
     }
 }

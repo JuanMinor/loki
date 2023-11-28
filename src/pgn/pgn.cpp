@@ -12,20 +12,20 @@ namespace pgn
     Pgn::Pgn() {}
     Pgn::~Pgn() {}
 
-    void Pgn::__clear_stream_flags__(std::ostream &__os) noexcept
+    void Pgn::__clear_stream_flags__(std::ostream &__os) const
     {
         __os.seekp(std::ios_base::beg);
         __os.clear();
     }
 
-    std::_Put_time<char> Pgn::__get_pgn_date__(void) noexcept
+    std::_Put_time<char> Pgn::__get_pgn_date__(void) const
     {
         time_t time = std::time(nullptr);
         tm *localtime = std::localtime(&time);
         return std::put_time(localtime, "%Y.%m.%d");
     }
 
-    void Pgn::__set_metadata__(std::ostream &__os) noexcept
+    void Pgn::__set_metadata__(std::ostream &__os) const
     {
         std::_Put_time<char> date = this->__get_pgn_date__();
         std::stringstream ss;
@@ -42,7 +42,7 @@ namespace pgn
         return;
     }
 
-    void Pgn::record(const std::string &__move) noexcept
+    void Pgn::record(const std::string &__move) const
     {
         std::fstream file;
         file.open(P_FILE_STORE, std::ios_base::app);
@@ -57,7 +57,7 @@ namespace pgn
         file.close();
     }
 
-    void Pgn::create_pgn(void) noexcept
+    void Pgn::create_pgn(void) const
     {
         std::fstream pgnFile, storeFile;
         pgnFile.open(P_FILE, std::ios::out);

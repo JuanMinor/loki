@@ -16,9 +16,9 @@ namespace pgn
     class Pgn
     {
         // @methods
-        void __clear_stream_flags__(std::ostream &__os) noexcept;
-        std::_Put_time<char> __get_pgn_date__(void) noexcept;
-        void __set_metadata__(std::ostream &__os) noexcept;
+        void __clear_stream_flags__(std::ostream &__os) const;
+        std::_Put_time<char> __get_pgn_date__(void) const;
+        void __set_metadata__(std::ostream &__os) const;
 
     public:
         Pgn();
@@ -26,8 +26,8 @@ namespace pgn
 
         // @methods
         void update_metadata(const std::string &__tag);
-        void record(const std::string &__move) noexcept;
-        void create_pgn(void) noexcept;
+        void record(const std::string &__move) const;
+        void create_pgn(void) const;
     };
 
 #define PGN Pgn()

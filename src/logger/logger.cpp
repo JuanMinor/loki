@@ -22,14 +22,14 @@ namespace logger
     Logger::Logger() {}
     Logger::~Logger() {}
 
-    std::_Put_time<char> Logger::__get_timestamp__()
+    std::_Put_time<char> Logger::__get_timestamp__(void) const
     {
         time_t time = std::time(nullptr);
         tm *localtime = std::localtime(&time);
         return std::put_time(localtime, "%a %b %d, %Y @ %H:%M:%S");
     }
 
-    void Logger::log(const std::string &__message, const char *__file, const uint8_t &__lineno, const LEVEL &__level) noexcept
+    void Logger::log(const std::string &__message, const char *__file, const uint8_t &__lineno, const LEVEL &__level) const
     {
         if (__level == DEBUG)
         {

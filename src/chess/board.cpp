@@ -7,6 +7,7 @@
 #include <cstring>
 #include <iostream>
 #include <stdint.h>
+#include <unordered_map>
 
 #include "include/chess/board.h"
 #include "include/core/core.h"
@@ -15,6 +16,14 @@
 
 namespace loki
 {
+    std::unordered_map<char, std::string> piece_names = {
+        {'p', "Pawn"},
+        {'n', "Knight"},
+        {'b', "Bishop"},
+        {'r', "Rook"},
+        {'q', "Queen"},
+        {'k', "King"}};
+
     Board::Board(const char *__placement)
     {
         size_t size = std::strlen(__placement);
@@ -39,12 +48,21 @@ namespace loki
                 }
                 continue;
             }
-            this->board[rank][file++] = new Piece(c, rank, file);
+            Piece *piece = new Piece(c, rank, file);
+            this->board[rank][file++] = piece;
             std::stringstream ss;
-            ss << "Created piece with alias '" << c << "' with <rank, file> <" << unsigned(rank) << ", " << unsigned(file) << ">!";
+            std::string color = piece->get_color() == WHITE ? "White" : "Black";
+            ss << "Created "
+               << color
+               << " "
+               << piece_names.at(std::tolower(c, std::locale()))
+               << " with <rank, file> <"
+               << unsigned(piece->get_rank())
+               << ", "
+               << unsigned(piece->get_file())
+               << "> ✅";
             logger::LOG_DEBUG(ss.str());
         }
-        logger::LOG_INFO("Created chess board!");
     }
 
     Board::~Board()
@@ -57,28 +75,36 @@ namespace loki
                 if (piece != nullptr)
                 {
                     std::stringstream ss;
-                    ss << "Destroyed piece with alias '" << piece->get_alias() << "' with <rank, file> <" << unsigned(piece->get_rank()) << ", " << unsigned(piece->get_file()) << ">!";
+                    std::string color = piece->get_color() == WHITE ? "White" : "Black";
+                    ss << "Destroyed "
+                       << color
+                       << " "
+                       << piece_names.at(std::tolower(piece->get_alias(), std::locale()))
+                       << " with <rank, file> <"
+                       << unsigned(piece->get_rank())
+                       << ", "
+                       << unsigned(piece->get_file())
+                       << "> ❌";
                     logger::LOG_DEBUG(ss.str());
                     delete piece;
                 }
             }
         }
-        logger::LOG_INFO("Destroyed chess board and it's components!");
     }
 
-    std::string Board::__get_algebraic_notation__(const uint8_t &__rank, const uint8_t &__file)
+    std::string Board::__get_algebraic_notation__(const uint8_t &__rank, const uint8_t &__file) const
     {
         std::stringstream ss;
         ss << char(97 + __rank) << unsigned(__file);
         return ss.str();
     }
 
-    std::vector<std::vector<Piece *>> Board::get_board()
+    std::vector<std::vector<Piece *>> Board::get_board(void) const
     {
         return this->board;
     }
 
-    void Board::move(Piece *__piece, const uint8_t &__rank, const uint8_t &__file)
+    void Board::move(Piece *&__piece, const uint8_t &__rank, const uint8_t &__file)
     {
         std::stringstream ss;
         // @errors
@@ -102,20 +128,34 @@ namespace loki
         this->board[__rank][__file] = __piece;
         this->board[rank][file] = nullptr;
 
-        ss << "Moved piece with alias '" << __piece->get_alias()
-           << "' from <rank, file> <" << unsigned(rank) << ", "
-           << unsigned(file) << "> to <" << unsigned(__rank)
-           << ", " << unsigned(__file) << ">!";
+        std::string color = __piece->get_color() == WHITE ? "White" : "Black";
+
+        ss << "Moved "
+           << color
+           << " "
+           << piece_names.at(std::tolower(__piece->get_alias(), std::locale()))
+           << " from <rank, file> <"
+           << unsigned(rank)
+           << ", "
+           << unsigned(file)
+           << "> to <"
+           << unsigned(__rank)
+           << ", "
+           << unsigned(__file)
+           << "> 🚀";
+
         logger::LOG_INFO(ss.str());
 
         // @pgn
         ss.str("");
-        ss << this->__get_algebraic_notation__(rank, file) << " " << this->__get_algebraic_notation__(__rank, __file);
+        ss << this->__get_algebraic_notation__(rank, file)
+           << " "
+           << this->__get_algebraic_notation__(__rank, __file);
         pgn::RECORD(ss.str());
         return;
     }
 
-    void Board::print(void)
+    void Board::print(void) const
     {
         if (!DEBUG_ENABLED)
         {

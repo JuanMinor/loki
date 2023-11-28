@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 
     board->print();
 
-    board->move(board->get_board()[0][0], 5, 5);
+    board->move(board->get_board()[1][1], 3, 1);
 
     board->print();
 

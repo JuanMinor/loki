@@ -57,5 +57,9 @@
 		"fstream": "cpp",
 		"iomanip": "cpp",
 		"sstream": "cpp"
-	}
+	},
+	"cSpell.words": [
+		"fullmoves",
+		"halfmove"
+	]
 }

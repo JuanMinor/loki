@@ -18,22 +18,22 @@ namespace loki
         char *castling;
         char *en_passant;
         uint8_t color;
-        uint8_t h_moves; // @half
-        uint8_t f_moves; // @full
+        uint8_t halfmove_clock;
+        uint8_t fullmoves;
         // @methods
-        std::vector<char *> __split__(char *__fen, const char *__delimiters) noexcept;
+        std::vector<char *> __split__(char *__fen, const char *__delimiters) const;
 
     public:
         Fen(char *__fen);
         ~Fen();
 
         // @getters
-        char *get_placement(void) noexcept;
-        char *get_castling(void) noexcept;
-        char *get_en_passant(void) noexcept;
-        uint8_t get_color(void) noexcept;
-        uint8_t get_h_moves(void) noexcept;
-        uint8_t get_f_moves(void) noexcept;
+        char *get_placement(void) const;
+        char *get_castling(void) const;
+        char *get_en_passant(void) const;
+        uint8_t get_color(void) const;
+        uint8_t get_halfmove_clock(void) const;
+        uint8_t get_fullmoves(void) const;
     };
 }
 
